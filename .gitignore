@@ -1,0 +1,10 @@
+﻿bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+*.rsuser
+TestResults/
+*.log
+appsettings.Production.json

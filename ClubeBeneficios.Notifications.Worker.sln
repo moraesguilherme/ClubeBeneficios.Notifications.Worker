@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7D5B65CD-7297-4A5A-A40F-095FF62D1273}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClubeBeneficios.Notifications.Worker", "src\ClubeBeneficios.Notifications.Worker\ClubeBeneficios.Notifications.Worker.csproj", "{4FF3237A-1CD7-4C1E-BF81-F964D37A5188}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FF3237A-1CD7-4C1E-BF81-F964D37A5188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FF3237A-1CD7-4C1E-BF81-F964D37A5188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FF3237A-1CD7-4C1E-BF81-F964D37A5188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FF3237A-1CD7-4C1E-BF81-F964D37A5188}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4FF3237A-1CD7-4C1E-BF81-F964D37A5188} = {7D5B65CD-7297-4A5A-A40F-095FF62D1273}
+	EndGlobalSection
+EndGlobal

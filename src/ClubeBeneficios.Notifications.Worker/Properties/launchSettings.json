@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "ClubeBeneficios.Notifications.Worker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
