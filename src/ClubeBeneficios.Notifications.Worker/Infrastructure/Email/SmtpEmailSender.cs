@@ -126,17 +126,17 @@ public class SmtpEmailSender : IEmailSender
     {
         if (string.IsNullOrWhiteSpace(_options.Host))
         {
-            throw new InvalidOperationException("Smtp:Host nÃ£o configurado.");
+            throw new InvalidOperationException("Smtp:Host não configurado.");
         }
 
         if (_options.Port <= 0)
         {
-            throw new InvalidOperationException("Smtp:Port invÃ¡lido.");
+            throw new InvalidOperationException("Smtp:Port inválido.");
         }
 
         if (string.IsNullOrWhiteSpace(_options.FromEmail))
         {
-            throw new InvalidOperationException("Smtp:FromEmail nÃ£o configurado.");
+            throw new InvalidOperationException("Smtp:FromEmail não configurado.");
         }
     }
 
@@ -149,17 +149,17 @@ public class SmtpEmailSender : IEmailSender
 
         if (string.IsNullOrWhiteSpace(message.ToEmail))
         {
-            throw new InvalidOperationException("DestinatÃ¡rio do e-mail nÃ£o informado.");
+            throw new InvalidOperationException("Destinatário do e-mail não informado.");
         }
 
         if (string.IsNullOrWhiteSpace(message.Subject))
         {
-            throw new InvalidOperationException("Assunto do e-mail nÃ£o informado.");
+            throw new InvalidOperationException("Assunto do e-mail não informado.");
         }
 
         if (string.IsNullOrWhiteSpace(message.BodyHtml) && string.IsNullOrWhiteSpace(message.BodyText))
         {
-            throw new InvalidOperationException("Corpo do e-mail nÃ£o informado.");
+            throw new InvalidOperationException("Corpo do e-mail não informado.");
         }
     }
 }

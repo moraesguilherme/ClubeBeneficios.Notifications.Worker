@@ -43,18 +43,18 @@ public class NotificationBackgroundWorker : BackgroundService
 
     private async Task ExecuteManualAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("Modo Manual selecionado. Iniciando ciclo Ãºnico de processamento.");
+        _logger.LogInformation("Modo Manual selecionado. Iniciando ciclo único de processamento.");
 
         var processedCount = await ProcessCycleAsync(stoppingToken);
 
         _logger.LogInformation(
-            "Modo Manual finalizado. NotificaÃ§Ãµes processadas: {ProcessedCount}.",
+            "Modo Manual finalizado. Notificações processadas: {ProcessedCount}.",
             processedCount);
     }
 
     private async Task ExecuteWatchAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("Modo Watch selecionado. Processamento contÃ­nuo iniciado.");
+        _logger.LogInformation("Modo Watch selecionado. Processamento contínuo iniciado.");
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -65,13 +65,13 @@ public class NotificationBackgroundWorker : BackgroundService
                 if (processedCount == 0)
                 {
                     _logger.LogInformation(
-                        "Nenhuma notificaÃ§Ã£o pendente encontrada. PrÃ³ximo ciclo em {Seconds} segundos.",
+                        "Nenhuma notificação pendente encontrada. Próximo ciclo em {Seconds} segundos.",
                         _options.PollingIntervalSeconds);
                 }
                 else
                 {
                     _logger.LogInformation(
-                        "Ciclo concluÃ­do. NotificaÃ§Ãµes processadas: {ProcessedCount}. PrÃ³ximo ciclo em {Seconds} segundos.",
+                        "Ciclo concluí­do. Notificações processadas: {ProcessedCount}. Próximo ciclo em {Seconds} segundos.",
                         processedCount,
                         _options.PollingIntervalSeconds);
                 }
@@ -84,14 +84,14 @@ public class NotificationBackgroundWorker : BackgroundService
             {
                 _logger.LogError(
                     ex,
-                    "Erro nÃ£o tratado durante ciclo de processamento. PrÃ³xima tentativa em {Seconds} segundos.",
+                    "Erro não tratado durante ciclo de processamento. Próxima tentativa em {Seconds} segundos.",
                     _options.PollingIntervalSeconds);
             }
 
             await DelayUntilNextCycleAsync(stoppingToken);
         }
 
-        _logger.LogInformation("Modo Watch finalizado por solicitaÃ§Ã£o de parada.");
+        _logger.LogInformation("Modo Watch finalizado por solicitação de parada.");
     }
 
     private async Task<int> ProcessCycleAsync(CancellationToken cancellationToken)
@@ -122,7 +122,7 @@ public class NotificationBackgroundWorker : BackgroundService
         _expiredLocksReleased = true;
 
         _logger.LogInformation(
-            "Locks expirados liberados na inicializaÃ§Ã£o: {ReleasedCount}.",
+            "Locks expirados liberados na inicialização: {ReleasedCount}.",
             releasedCount);
     }
 

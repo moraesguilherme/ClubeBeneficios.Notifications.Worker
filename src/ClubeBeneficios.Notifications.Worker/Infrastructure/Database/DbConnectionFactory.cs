@@ -17,7 +17,7 @@ public class DbConnectionFactory : IDbConnectionFactory
         var connectionString =
             _configuration.GetConnectionString("DefaultConnection") ??
             _configuration.GetConnectionString("ClubeBeneficiosDb") ??
-            throw new InvalidOperationException("Connection string 'DefaultConnection' ou 'ClubeBeneficiosDb' nÃ£o encontrada.");
+            throw new InvalidOperationException("Connection string 'DefaultConnection' ou 'ClubeBeneficiosDb' não encontrada.");
 
         var connection = new SqlConnection(connectionString);
         await connection.OpenAsync(cancellationToken);

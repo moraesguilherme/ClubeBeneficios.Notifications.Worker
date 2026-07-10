@@ -91,7 +91,7 @@ public class NotificationOutboxRepository : INotificationOutboxRepository
         {
             _logger.LogError(
                 ex,
-                "Falha ao marcar notificaÃ§Ã£o {NotificationId} como failed. Erro original: {ErrorMessage}",
+                "Falha ao marcar notificação {NotificationId} como failed. Erro original: {ErrorMessage}",
                 notificationId,
                 errorMessage);
 
