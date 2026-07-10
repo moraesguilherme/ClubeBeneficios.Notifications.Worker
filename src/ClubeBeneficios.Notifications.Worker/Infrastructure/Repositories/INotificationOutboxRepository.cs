@@ -13,11 +13,12 @@ public interface INotificationOutboxRepository
 
     Task MarkSentAsync(
         Guid notificationId,
-        string? providerMessageId,
+        Guid lockId,
         CancellationToken cancellationToken = default);
 
     Task MarkFailedAsync(
         Guid notificationId,
+        Guid lockId,
         string errorMessage,
         CancellationToken cancellationToken = default);
 }

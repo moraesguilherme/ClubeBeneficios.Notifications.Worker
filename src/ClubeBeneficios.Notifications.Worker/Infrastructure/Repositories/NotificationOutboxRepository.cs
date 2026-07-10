@@ -50,14 +50,14 @@ public class NotificationOutboxRepository : INotificationOutboxRepository
 
     public async Task MarkSentAsync(
         Guid notificationId,
-        string? providerMessageId,
+        Guid lockId,
         CancellationToken cancellationToken = default)
     {
         using var connection = await _connectionFactory.CreateOpenConnectionAsync(cancellationToken);
 
         var parameters = new DynamicParameters();
         parameters.Add("NotificationId", notificationId);
-        parameters.Add("ProviderMessageId", providerMessageId);
+        parameters.Add("LockId", lockId);
 
         await connection.ExecuteAsync(new CommandDefinition(
             "dbo.usp_notification_mark_sent",
@@ -68,6 +68,7 @@ public class NotificationOutboxRepository : INotificationOutboxRepository
 
     public async Task MarkFailedAsync(
         Guid notificationId,
+        Guid lockId,
         string errorMessage,
         CancellationToken cancellationToken = default)
     {
@@ -75,6 +76,7 @@ public class NotificationOutboxRepository : INotificationOutboxRepository
 
         var parameters = new DynamicParameters();
         parameters.Add("NotificationId", notificationId);
+        parameters.Add("LockId", lockId);
         parameters.Add("ErrorMessage", errorMessage);
 
         try

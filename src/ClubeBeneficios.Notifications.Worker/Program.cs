@@ -4,6 +4,9 @@ using ClubeBeneficios.Notifications.Worker.Infrastructure.Email;
 using ClubeBeneficios.Notifications.Worker.Infrastructure.Repositories;
 using ClubeBeneficios.Notifications.Worker.Services;
 using ClubeBeneficios.Notifications.Worker.Workers;
+using Dapper;
+
+DefaultTypeMap.MatchNamesWithUnderscores = true;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -15,9 +18,10 @@ builder.Services.Configure<SmtpOptions>(
 
 builder.Services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
 builder.Services.AddScoped<INotificationOutboxRepository, NotificationOutboxRepository>();
+
 builder.Services.AddSingleton<ITemplateRenderer, SimpleTemplateRenderer>();
-builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
 builder.Services.AddScoped<INotificationProcessingService, NotificationProcessingService>();
+builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
 
 builder.Services.AddHostedService<NotificationBackgroundWorker>();
 

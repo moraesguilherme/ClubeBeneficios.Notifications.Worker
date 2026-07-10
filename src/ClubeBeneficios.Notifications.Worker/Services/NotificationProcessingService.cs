@@ -69,6 +69,7 @@ public class NotificationProcessingService : INotificationProcessingService
                 cancellationToken.ThrowIfCancellationRequested();
 
                 await ProcessSingleAsync(notification, cancellationToken);
+
                 processedCount++;
 
                 if (processedCount >= maxItemsPerCycle)
@@ -85,14 +86,24 @@ public class NotificationProcessingService : INotificationProcessingService
         NotificationMessage notification,
         CancellationToken cancellationToken)
     {
+        if (!notification.LockId.HasValue || notification.LockId.Value == Guid.Empty)
+        {
+            _logger.LogError(
+                "NotificaÃ§Ã£o {NotificationId} foi reivindicada sem LockId. Verifique o retorno da procedure usp_notification_claim_batch.",
+                notification.Id);
+
+            return;
+        }
+
         try
         {
             _logger.LogInformation(
-                "Processando notificaÃ§Ã£o {NotificationId}. Module={Module}, EventType={EventType}, Recipient={RecipientEmail}",
+                "Processando notificaÃ§Ã£o {NotificationId}. Module={Module}, EventType={EventType}, Recipient={RecipientEmail}, TemplateKey={TemplateKey}",
                 notification.Id,
                 notification.Module,
                 notification.EventType,
-                notification.RecipientEmail);
+                notification.RecipientEmail,
+                notification.TemplateKey);
 
             var rendered = _templateRenderer.Render(notification);
 
@@ -111,11 +122,11 @@ public class NotificationProcessingService : INotificationProcessingService
             {
                 await _repository.MarkSentAsync(
                     notification.Id,
-                    sendResult.ProviderMessageId,
+                    notification.LockId.Value,
                     cancellationToken);
 
                 _logger.LogInformation(
-                    "NotificaÃ§Ã£o {NotificationId} enviada com sucesso.",
+                    "NotificaÃ§Ã£o {NotificationId} enviada e marcada como sent com sucesso.",
                     notification.Id);
 
                 return;
@@ -125,7 +136,11 @@ public class NotificationProcessingService : INotificationProcessingService
                 ? "Falha desconhecida no envio de e-mail."
                 : sendResult.ErrorMessage;
 
-            await _repository.MarkFailedAsync(notification.Id, errorMessage, cancellationToken);
+            await _repository.MarkFailedAsync(
+                notification.Id,
+                notification.LockId.Value,
+                errorMessage,
+                cancellationToken);
 
             _logger.LogWarning(
                 "Falha ao enviar notificaÃ§Ã£o {NotificationId}. Erro: {ErrorMessage}",
@@ -142,7 +157,11 @@ public class NotificationProcessingService : INotificationProcessingService
 
             try
             {
-                await _repository.MarkFailedAsync(notification.Id, errorMessage, cancellationToken);
+                await _repository.MarkFailedAsync(
+                    notification.Id,
+                    notification.LockId.Value,
+                    errorMessage,
+                    cancellationToken);
             }
             catch (Exception markFailedException)
             {

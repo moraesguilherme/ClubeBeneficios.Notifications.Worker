@@ -4,6 +4,8 @@ public class NotificationMessage
 {
     public Guid Id { get; set; }
 
+    public Guid? LockId { get; set; }
+
     public string Module { get; set; } = string.Empty;
 
     public string EventType { get; set; } = string.Empty;
