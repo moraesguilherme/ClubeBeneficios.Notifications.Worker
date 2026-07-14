@@ -8,3 +8,6 @@ obj/
 TestResults/
 *.log
 appsettings.Production.json
+publish/
+appsettings.json
+appsettings.Development.json
